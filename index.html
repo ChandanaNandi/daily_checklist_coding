@@ -1,0 +1,1768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Daily Roadmap Checklist</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+    }
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+    /* Sidebar styles */
+    .sidebar {
+      width: 240px;
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding: 20px;
+    }
+    .sidebar h2 {
+      margin-top: 0;
+      font-size: 1.3em;
+      border-bottom: 1px solid #34495e;
+      padding-bottom: 10px;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar li {
+      margin: 15px 0;
+    }
+    .sidebar li a {
+      text-decoration: none;
+      color: #ecf0f1;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+    .sidebar li a:hover {
+      text-decoration: underline;
+    }
+    /* Main content styles */
+    .content {
+      flex: 1;
+      padding: 30px;
+    }
+    .content h1 {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+    }
+    .task {
+      background: #fff;
+      padding: 10px 15px;
+      margin: 10px 0;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+    }
+    .task input[type="checkbox"] {
+      margin-right: 15px;
+      transform: scale(1.2);
+    }
+    /* Notes section */
+    .notes {
+      margin-top: 30px;
+    }
+    .notes textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+      <h2>Daily Checklist</h2>
+      <ul id="dayList">
+        <!-- Navigation links will be populated here -->
+      </ul>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="content">
+      <h1 id="dayTitle">Day 1</h1>
+      <div id="taskContainer">
+        <!-- Daily tasks will appear here -->
+      </div>
+      <!-- Notes Section -->
+      <div class="notes">
+        <h2>Notes for <span id="notesDay">Day 1</span></h2>
+        <textarea id="notesArea" placeholder="Enter your notes for this day..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    &copy; 2025 Your Roadmap Checklist
+  </div>
+
+  <script>
+    /*************************************************************
+      Below is the ENTIRE 140-day JSON (morning, afternoon, evening).
+      No fetch or file input is needed—it's all in this one file.
+      If anything breaks, check for syntax issues.
+    *************************************************************/
+    let tasksData = {
+      "Day 1": {
+        "morning": [
+          "Install Python (Anaconda) and set up Jupyter Notebook",
+          "Watch 'Python for Beginners' video (20 minutes)",
+          "Write and run a simple 'Hello World' script"
+        ],
+        "afternoon": [
+          "Read a basic Python tutorial (1-2 chapters)",
+          "Practice basic exercises (loops, conditionals) on an online coding platform",
+          "Introduction to SQL: Read an article on SELECT queries"
+        ],
+        "evening": [
+          "Review and document key points from Day 1",
+          "Update your learning journal with reflections"
+        ]
+      },
+      "Day 2": {
+        "morning": [
+          "Learn Python lists: slicing, indexing, and basic operations",
+          "Write examples that create, modify, and iterate over lists"
+        ],
+        "afternoon": [
+          "Solve 2-3 list manipulation problems on HackerRank/LeetCode",
+          "Practice a simple SELECT with a WHERE clause in SQL"
+        ],
+        "evening": [
+          "Review list operations and update your notes",
+          "Reflect on any issues encountered and document solutions"
+        ]
+      },
+      "Day 3": {
+        "morning": [
+          "Learn Python string methods (concatenation, slicing, splitting, formatting)",
+          "Code examples that manipulate strings"
+        ],
+        "afternoon": [
+          "Solve string-related problems (e.g., reversing a string, checking palindromes)",
+          "Write an aggregation query (using COUNT, SUM) on a sample table in SQL"
+        ],
+        "evening": [
+          "Review string functions and SQL query results",
+          "Update your learning journal with insights"
+        ]
+      },
+      "Day 4": {
+        "morning": [
+          "Review arrays in Python and simple algorithms (summing elements, finding max/min)",
+          "Re-solve a couple of 'array' problems in Python"
+        ],
+        "afternoon": [
+          "Read a tutorial on linked lists and implement a simple singly linked list in Python",
+          "Learn about INNER JOINs in SQL and try a simple JOIN example"
+        ],
+        "evening": [
+          "Review linked list implementation and SQL JOIN output",
+          "Update your learning journal with key takeaways"
+        ]
+      },
+      "Day 5": {
+        "morning": [
+          "Learn stacks and queues in Python; implement them using lists or collections.deque"
+        ],
+        "afternoon": [
+          "Solve a coding problem using a stack or queue (e.g., balancing parentheses)",
+          "Practice writing a SQL query that uses JOIN to combine two tables"
+        ],
+        "evening": [
+          "Review your stack/queue implementations and SQL query results",
+          "Document reflections and improvements"
+        ]
+      },
+      "Day 6": {
+        "morning": [
+          "Study binary trees and simple traversals (preorder, inorder, postorder) in Python",
+          "Implement a basic binary tree and perform a traversal"
+        ],
+        "afternoon": [
+          "Solve a basic tree traversal problem",
+          "Watch a 20-minute video on 'Computer Architecture Basics' (focus on CPU and memory hierarchy)"
+        ],
+        "evening": [
+          "Review tree traversal methods and computer architecture concepts",
+          "Update your notes with summaries and reflections"
+        ]
+      },
+      "Day 7": {
+        "morning": [
+          "Re-solve 2-3 mixed DSA problems (arrays, strings, and linked lists) in Python"
+        ],
+        "afternoon": [
+          "Complete a set of SQL practice queries (combining SELECT, WHERE, and JOIN)",
+          "Review computer architecture notes"
+        ],
+        "evening": [
+          "Consolidate your learning for the week",
+          "Update your learning journal with reflections and set goals for next week"
+        ]
+      },
+      "Day 8": {
+        "morning": [
+          "Deepen your understanding of binary trees; implement insertion and traversal in Python"
+        ],
+        "afternoon": [
+          "Solve tree-related problems; practice GROUP BY and HAVING clauses in SQL"
+        ],
+        "evening": [
+          "Review tree traversal methods and update your notes with key insights"
+        ]
+      },
+      "Day 9": {
+        "morning": [
+          "Learn basic graph representations and study BFS (Breadth-First Search) theory"
+        ],
+        "afternoon": [
+          "Implement BFS in Python; practice a JOIN query in SQL"
+        ],
+        "evening": [
+          "Review your BFS implementation and update your study journal"
+        ]
+      },
+      "Day 10": {
+        "morning": [
+          "Study and implement merge sort in Python"
+        ],
+        "afternoon": [
+          "Test your sorting algorithm on various datasets; watch a video on CPU internals"
+        ],
+        "evening": [
+          "Document sorting algorithm efficiency and review CPU internals"
+        ]
+      },
+      "Day 11": {
+        "morning": [
+          "Implement binary search in Python"
+        ],
+        "afternoon": [
+          "Solve two binary search problems; practice writing nested SQL queries"
+        ],
+        "evening": [
+          "Review binary search implementations; update your notes"
+        ]
+      },
+      "Day 12": {
+        "morning": [
+          "Solve mixed DSA problems covering trees, graphs, sorting, and searching"
+        ],
+        "afternoon": [
+          "Practice SQL window functions (ROW_NUMBER, RANK)"
+        ],
+        "evening": [
+          "Document insights from mixed practice and update your learning journal"
+        ]
+      },
+      "Day 13": {
+        "morning": [
+          "Revisit a challenging DSA topic (e.g., graph traversal) and re-solve a problem"
+        ],
+        "afternoon": [
+          "Solve extra SQL problems with advanced JOINs and subqueries"
+        ],
+        "evening": [
+          "Reflect on learnings and update your study journal with key questions"
+        ]
+      },
+      "Day 14": {
+        "morning": [
+          "Take a timed coding quiz covering arrays, strings, trees, and graphs in Python"
+        ],
+        "afternoon": [
+          "Review SQL exercises and optimize queries"
+        ],
+        "evening": [
+          "Write a weekly summary and update your Phase 1 summary document"
+        ]
+      },
+      "Day 15": {
+        "morning": [
+          "Create a simple Python program that processes a small dataset (e.g., calculate statistics)"
+        ],
+        "afternoon": [
+          "Write a SQL query to extract and aggregate similar data"
+        ],
+        "evening": [
+          "Document differences between Python processing and SQL queries"
+        ]
+      },
+      "Day 16": {
+        "morning": [
+          "Learn advanced Python techniques: list comprehensions, lambda functions, map/reduce"
+        ],
+        "afternoon": [
+          "Practice advanced Python examples and update your notebook"
+        ],
+        "evening": [
+          "Study memory hierarchy (registers, cache, RAM) and document its importance for performance"
+        ]
+      },
+      "Day 17": {
+        "morning": [
+          "Solve 2-3 DSA problems focused on trees/graphs in Python"
+        ],
+        "afternoon": [
+          "Tackle a challenging SQL query with JOINs and window functions"
+        ],
+        "evening": [
+          "Update your problem-solving notes and document insights"
+        ]
+      },
+      "Day 18": {
+        "morning": [
+          "Create a Python module that integrates arrays and linked lists for a specific task"
+        ],
+        "afternoon": [
+          "Simulate similar data processing in SQL using sample data"
+        ],
+        "evening": [
+          "Reflect on the differences between programming and query-based solutions"
+        ]
+      },
+      "Day 19": {
+        "morning": [
+          "Re-code key DSA examples (trees and graphs) in Python"
+        ],
+        "afternoon": [
+          "Optimize an existing SQL query; experiment with indexes"
+        ],
+        "evening": [
+          "Write optimization tips and update your cheat-sheet"
+        ]
+      },
+      "Day 20": {
+        "morning": [
+          "Re-solve 2 mixed problems (one DSA and one SQL) that were challenging earlier"
+        ],
+        "afternoon": [
+          "Review unclear topics using online tutorials; re-solve problems"
+        ],
+        "evening": [
+          "Update your study journal with 'to-review' topics and reflections"
+        ]
+      },
+      "Day 21": {
+        "morning": [
+          "Take a comprehensive, timed test covering topics from Weeks 1-3"
+        ],
+        "afternoon": [
+          "Review errors and refine your solutions in Python and SQL"
+        ],
+        "evening": [
+          "Summarize progress and set goals for Week 4"
+        ]
+      },
+      "Day 22": {
+        "morning": [
+          "Solve 3-4 mixed DSA problems (arrays, strings, trees, graphs) in Python without referring to notes"
+        ],
+        "afternoon": [
+          "Execute a series of mixed SQL queries (SELECT with JOINs, aggregations, subqueries)"
+        ],
+        "evening": [
+          "Review key learnings and update your summary notes"
+        ]
+      },
+      "Day 23": {
+        "morning": [
+          "Build a mini-project: Read a CSV file, process data with Pandas, and save results to SQLite"
+        ],
+        "afternoon": [
+          "Extend the project with SQL queries against SQLite"
+        ],
+        "evening": [
+          "Document the project process with comments and a brief write-up"
+        ]
+      },
+      "Day 24": {
+        "morning": [
+          "Solve challenging DSA and SQL problems on paper first, then implement in code"
+        ],
+        "afternoon": [
+          "Review your solutions using an online code checker"
+        ],
+        "evening": [
+          "Update your notebook with lessons learned from today's practice"
+        ]
+      },
+      "Day 25": {
+        "morning": [
+          "Revisit and re-code any topic that still feels unclear (e.g., graph traversal or nested SQL queries)"
+        ],
+        "afternoon": [
+          "Create a cheat-sheet summarizing key algorithms and SQL syntax"
+        ],
+        "evening": [
+          "Reflect for 20 minutes on what you've mastered and note improvements"
+        ]
+      },
+      "Day 26": {
+        "morning": [
+          "Take an online practice test covering all foundation topics"
+        ],
+        "afternoon": [
+          "Analyze your mistakes and research solutions for challenging problems"
+        ],
+        "evening": [
+          "Update your portfolio repository with refined code examples"
+        ]
+      },
+      "Day 27": {
+        "morning": [
+          "Polish one of your mini-projects by adding detailed documentation and comments"
+        ],
+        "afternoon": [
+          "Share your project with a peer or online community for feedback"
+        ],
+        "evening": [
+          "Reflect on feedback and update your project accordingly"
+        ]
+      },
+      "Day 28": {
+        "morning": [
+          "Conduct a final review session: Re-read your cheat-sheet and complete a timed challenge"
+        ],
+        "afternoon": [
+          "Summarize all Phase 1 topics in a 'Phase 1 Summary' document"
+        ],
+        "evening": [
+          "Set clear goals for transitioning to Phase 2 and update your learning journal"
+        ]
+      },
+      "Day 29": {
+        "morning": [
+          "Study NumPy basics: arrays, creation, slicing, and reshaping"
+        ],
+        "afternoon": [
+          "Practice arithmetic operations on NumPy arrays with a sample dataset"
+        ],
+        "evening": [
+          "Review key NumPy functions and update your notebook"
+        ]
+      },
+      "Day 30": {
+        "morning": [
+          "Deepen your NumPy skills with vectorized operations and aggregations"
+        ],
+        "afternoon": [
+          "Solve NumPy problems (e.g., matrix operations) on a sample dataset"
+        ],
+        "evening": [
+          "Document NumPy optimizations and reflect on performance"
+        ]
+      },
+      "Day 31": {
+        "morning": [
+          "Learn how to load data into Pandas DataFrames from CSV/Excel"
+        ],
+        "afternoon": [
+          "Import a sample dataset and perform basic DataFrame operations (head, info, describe)"
+        ],
+        "evening": [
+          "Document your data loading process and key DataFrame methods"
+        ]
+      },
+      "Day 32": {
+        "morning": [
+          "Focus on data indexing and filtering in Pandas (loc, iloc)"
+        ],
+        "afternoon": [
+          "Practice merging and joining DataFrames using sample data"
+        ],
+        "evening": [
+          "Update your notes with examples of merging DataFrames"
+        ]
+      },
+      "Day 33": {
+        "morning": [
+          "Learn data cleaning techniques in Pandas: handling missing data, duplicates, and type conversion"
+        ],
+        "afternoon": [
+          "Apply data cleaning steps to your dataset"
+        ],
+        "evening": [
+          "Write a short report on your data cleaning process and update your notebook"
+        ]
+      },
+      "Day 34": {
+        "morning": [
+          "Begin a mini-EDA project using Pandas on a public dataset (e.g., COVID-19, sales data)"
+        ],
+        "afternoon": [
+          "Clean and transform the dataset; compute summary statistics"
+        ],
+        "evening": [
+          "Document initial observations and update your Jupyter Notebook"
+        ]
+      },
+      "Day 35": {
+        "morning": [
+          "Re-run your NumPy/Pandas exercises on a new dataset to validate techniques"
+        ],
+        "afternoon": [
+          "Review data cleaning and merging techniques with another dataset"
+        ],
+        "evening": [
+          "Update your portfolio with refined examples from today"
+        ]
+      },
+      "Day 36": {
+        "morning": [
+          "Use Pandas to compute summary statistics and visualize data distributions"
+        ],
+        "afternoon": [
+          "Plot basic histograms and box plots using Matplotlib"
+        ],
+        "evening": [
+          "Document your findings and update your visualization notes"
+        ]
+      },
+      "Day 37": {
+        "morning": [
+          "Study Matplotlib basics: line, bar, and scatter plots"
+        ],
+        "afternoon": [
+          "Create simple plots using your dataset"
+        ],
+        "evening": [
+          "Customize plots (titles, labels, legends) and save them; update your notes"
+        ]
+      },
+      "Day 38": {
+        "morning": [
+          "Experiment with different Matplotlib styles and color schemes"
+        ],
+        "afternoon": [
+          "Recreate a visualization from a tutorial using your own data"
+        ],
+        "evening": [
+          "Compare outputs and document best practices in your notebook"
+        ]
+      },
+      "Day 39": {
+        "morning": [
+          "Learn Seaborn for advanced visualizations (heatmaps, pair plots)"
+        ],
+        "afternoon": [
+          "Recreate two Seaborn visualizations using your dataset"
+        ],
+        "evening": [
+          "Compare Seaborn and Matplotlib outputs; update your learning journal"
+        ]
+      },
+      "Day 40": {
+        "morning": [
+          "Combine multiple charts to explore data relationships"
+        ],
+        "afternoon": [
+          "Create a mini-report summarizing your EDA with various visualizations"
+        ],
+        "evening": [
+          "Review and update your Jupyter Notebook with annotated charts"
+        ]
+      },
+      "Day 41": {
+        "morning": [
+          "Compile your EDA work into a comprehensive data report"
+        ],
+        "afternoon": [
+          "Refine your report and add commentary on trends and anomalies"
+        ],
+        "evening": [
+          "Document the complete project and update your portfolio"
+        ]
+      },
+      "Day 42": {
+        "morning": [
+          "Review your visualizations and ensure consistency in your charts"
+        ],
+        "afternoon": [
+          "Prepare a summary document of your visualization learnings"
+        ],
+        "evening": [
+          "Update your Jupyter Notebook with final notes from the week"
+        ]
+      },
+      "Day 43": {
+        "morning": [
+          "Install Tableau Public and explore its interface"
+        ],
+        "afternoon": [
+          "Watch an introductory Tableau tutorial and navigate its features"
+        ],
+        "evening": [
+          "Document your first impressions and key Tableau functionalities"
+        ]
+      },
+      "Day 44": {
+        "morning": [
+          "Learn to create basic charts (bar, line, pie) in Tableau"
+        ],
+        "afternoon": [
+          "Reproduce a simple chart using your dataset in Tableau"
+        ],
+        "evening": [
+          "Document the steps and save the visualization on Tableau Public"
+        ]
+      },
+      "Day 45": {
+        "morning": [
+          "Explore Tableau filters, sorting, and interactivity"
+        ],
+        "afternoon": [
+          "Practice building calculated fields in Tableau"
+        ],
+        "evening": [
+          "Document best practices and update your Tableau notes"
+        ]
+      },
+      "Day 46": {
+        "morning": [
+          "Create multiple visualizations in Tableau using different chart types"
+        ],
+        "afternoon": [
+          "Experiment with different color schemes and layouts"
+        ],
+        "evening": [
+          "Save your work and update your Tableau Public profile"
+        ]
+      },
+      "Day 47": {
+        "morning": [
+          "Learn how to combine visualizations into an interactive Tableau dashboard"
+        ],
+        "afternoon": [
+          "Build a dashboard using your previously created charts"
+        ],
+        "evening": [
+          "Test interactivity and document your process"
+        ]
+      },
+      "Day 48": {
+        "morning": [
+          "Publish your Tableau dashboard on Tableau Public"
+        ],
+        "afternoon": [
+          "Share your dashboard with peers and request feedback"
+        ],
+        "evening": [
+          "Record feedback and plan improvements for your dashboard"
+        ]
+      },
+      "Day 49": {
+        "morning": [
+          "Review your Tableau work and refine your visualizations"
+        ],
+        "afternoon": [
+          "Update documentation with best practices and key learnings"
+        ],
+        "evening": [
+          "Summarize your Tableau dashboard experience and update your portfolio"
+        ]
+      },
+      "Day 50": {
+        "morning": [
+          "Study advanced SQL topics: subqueries and Common Table Expressions (CTEs)"
+        ],
+        "afternoon": [
+          "Solve practice problems involving CTEs on platforms like StrataScratch"
+        ],
+        "evening": [
+          "Document sample queries and update your SQL notes"
+        ]
+      },
+      "Day 51": {
+        "morning": [
+          "Learn SQL window functions (ROW_NUMBER, RANK) with examples"
+        ],
+        "afternoon": [
+          "Solve a problem using window functions to rank data"
+        ],
+        "evening": [
+          "Update your cheat-sheet with window function examples"
+        ]
+      },
+      "Day 52": {
+        "morning": [
+          "Extract data from a sample database using SQL"
+        ],
+        "afternoon": [
+          "Import the data into Pandas and perform analysis"
+        ],
+        "evening": [
+          "Document the full pipeline from SQL extraction to Pandas analysis"
+        ]
+      },
+      "Day 53": {
+        "morning": [
+          "Write and optimize a complex SQL query combining JOINs, subqueries, and window functions"
+        ],
+        "afternoon": [
+          "Compare query performance and document optimizations"
+        ],
+        "evening": [
+          "Save the optimized query in your notes and update your cheat-sheet"
+        ]
+      },
+      "Day 54": {
+        "morning": [
+          "Integrate your Python analysis with Tableau: extract data via SQL, analyze in Pandas, visualize in Tableau"
+        ],
+        "afternoon": [
+          "Draft a mini-project that demonstrates an end-to-end data flow"
+        ],
+        "evening": [
+          "Document the integration process and update your portfolio"
+        ]
+      },
+      "Day 55": {
+        "morning": [
+          "Share your integrated project with peers or online for feedback"
+        ],
+        "afternoon": [
+          "Refine your project based on the feedback received"
+        ],
+        "evening": [
+          "Update your portfolio repository with the refined project"
+        ]
+      },
+      "Day 56": {
+        "morning": [
+          "Consolidate all work from Weeks 5-8 into your portfolio"
+        ],
+        "afternoon": [
+          "Prepare a summary of key learnings from advanced SQL, Pandas, visualization, and Tableau"
+        ],
+        "evening": [
+          "Update your summary documents and set goals for the next phase"
+        ]
+      },
+      "Day 57": {
+        "morning": [
+          "Watch an introductory video on ML (supervised vs. unsupervised) and read the first chapter on ML fundamentals"
+        ],
+        "afternoon": [
+          "Set up a Jupyter Notebook for ML experiments and write key definitions"
+        ],
+        "evening": [
+          "Document initial ML concepts and examples in your notebook"
+        ]
+      },
+      "Day 58": {
+        "morning": [
+          "Study Linear Regression theory and its applications"
+        ],
+        "afternoon": [
+          "Implement a linear regression model using Scikit-Learn on a small dataset"
+        ],
+        "evening": [
+          "Compare predicted vs. actual values; document performance metrics (MSE, R²)"
+        ]
+      },
+      "Day 59": {
+        "morning": [
+          "Learn Logistic Regression fundamentals and differences from linear regression"
+        ],
+        "afternoon": [
+          "Implement a logistic regression classifier on a binary dataset using Scikit-Learn"
+        ],
+        "evening": [
+          "Document model metrics (accuracy, confusion matrix) and update your notes"
+        ]
+      },
+      "Day 60": {
+        "morning": [
+          "Re-run your linear regression model on a different dataset"
+        ],
+        "afternoon": [
+          "Analyze residuals and plot regression lines"
+        ],
+        "evening": [
+          "Update your notebook with observations and performance comparisons"
+        ]
+      },
+      "Day 61": {
+        "morning": [
+          "Solve a classification problem using Logistic Regression (e.g., spam detection)"
+        ],
+        "afternoon": [
+          "Compare model performance using different feature sets"
+        ],
+        "evening": [
+          "Document feature importance and update your analysis notes"
+        ]
+      },
+      "Day 62": {
+        "morning": [
+          "Review evaluation metrics for ML models (accuracy, precision, recall, F1, ROC-AUC)"
+        ],
+        "afternoon": [
+          "Apply a train-test split on one of your models and compare performance improvements"
+        ],
+        "evening": [
+          "Update your notebook with evaluation results and reflections"
+        ]
+      },
+      "Day 63": {
+        "morning": [
+          "Consolidate all ML experiments from the week in your Jupyter Notebook"
+        ],
+        "afternoon": [
+          "Review and document summary charts of evaluation metrics"
+        ],
+        "evening": [
+          "Update your portfolio with ML experiment summaries"
+        ]
+      },
+      "Day 64": {
+        "morning": [
+          "Study Decision Trees theory and splitting criteria (Gini, entropy)"
+        ],
+        "afternoon": [
+          "Implement a decision tree classifier using Scikit-Learn and visualize the tree"
+        ],
+        "evening": [
+          "Document the decision tree process and update your notes"
+        ]
+      },
+      "Day 65": {
+        "morning": [
+          "Learn about Random Forests and ensemble methods"
+        ],
+        "afternoon": [
+          "Implement a random forest model and compare its performance to a single decision tree"
+        ],
+        "evening": [
+          "Document improvements and update your experiment notes"
+        ]
+      },
+      "Day 66": {
+        "morning": [
+          "Study K-Nearest Neighbors (KNN) and its working principles"
+        ],
+        "afternoon": [
+          "Implement a KNN classifier; experiment with different values of K"
+        ],
+        "evening": [
+          "Document model accuracy and your tuning process"
+        ]
+      },
+      "Day 67": {
+        "morning": [
+          "Learn about K-Means clustering and its applications"
+        ],
+        "afternoon": [
+          "Apply K-Means on a dataset and visualize the clusters"
+        ],
+        "evening": [
+          "Analyze cluster validity and update your notes"
+        ]
+      },
+      "Day 68": {
+        "morning": [
+          "Study Principal Component Analysis (PCA) for dimensionality reduction"
+        ],
+        "afternoon": [
+          "Apply PCA on a dataset to reduce features and observe variance explained"
+        ],
+        "evening": [
+          "Document the results and update your notebook with PCA insights"
+        ]
+      },
+      "Day 69": {
+        "morning": [
+          "Re-run various ML models on a different dataset and compare performance"
+        ],
+        "afternoon": [
+          "Experiment with additional datasets and document comparisons"
+        ],
+        "evening": [
+          "Update your notebook with model performance reflections"
+        ]
+      },
+      "Day 70": {
+        "morning": [
+          "Summarize all ML models from the week with visualizations and metric comparisons"
+        ],
+        "afternoon": [
+          "Prepare a summary document of Week 10 ML learnings"
+        ],
+        "evening": [
+          "Update your portfolio with final ML experiment charts"
+        ]
+      },
+      "Day 71": {
+        "morning": [
+          "Study train-test splits and cross-validation techniques in ML"
+        ],
+        "afternoon": [
+          "Implement a train-test split on a dataset and document performance effects"
+        ],
+        "evening": [
+          "Review cross-validation improvements and update your notes"
+        ]
+      },
+      "Day 72": {
+        "morning": [
+          "Deep dive into evaluation metrics (accuracy, precision, recall, F1, ROC-AUC)"
+        ],
+        "afternoon": [
+          "Code examples to compute these metrics for your models"
+        ],
+        "evening": [
+          "Write a short guide on metric selection and update your notebook"
+        ]
+      },
+      "Day 73": {
+        "morning": [
+          "Practice evaluating models using cross-validation; compare metrics across models"
+        ],
+        "afternoon": [
+          "Visualize ROC curves and other performance charts in your notebook"
+        ],
+        "evening": [
+          "Update your notes with best practices for model evaluation"
+        ]
+      },
+      "Day 74": {
+        "morning": [
+          "Learn hyperparameter tuning techniques (grid search, random search)"
+        ],
+        "afternoon": [
+          "Apply grid search to one of your models and document tuning improvements"
+        ],
+        "evening": [
+          "Update your notebook with the tuning process and performance gains"
+        ]
+      },
+      "Day 75": {
+        "morning": [
+          "Re-implement the tuned model and compare performance pre- and post-tuning"
+        ],
+        "afternoon": [
+          "Document differences in metrics and refine the tuning process"
+        ],
+        "evening": [
+          "Write a reflection on what tuning achieved and update your notes"
+        ]
+      },
+      "Day 76": {
+        "morning": [
+          "Summarize the week’s learnings on evaluation and tuning in a cheat-sheet format"
+        ],
+        "afternoon": [
+          "Create graphs comparing model performance before and after tuning"
+        ],
+        "evening": [
+          "Update your portfolio with these comparison charts and notes"
+        ]
+      },
+      "Day 77": {
+        "morning": [
+          "Finalize your evaluation and tuning experiments; ensure your notes are comprehensive"
+        ],
+        "afternoon": [
+          "Update your portfolio with summary charts of model comparisons"
+        ],
+        "evening": [
+          "Review all ML evaluation concepts and document final thoughts"
+        ]
+      },
+      "Day 78": {
+        "morning": [
+          "Select a dataset for an end-to-end ML project (e.g., customer churn or housing prices)"
+        ],
+        "afternoon": [
+          "Define the project scope and outline steps: extraction, cleaning, feature engineering"
+        ],
+        "evening": [
+          "Create a project folder and set up a new Jupyter Notebook; document your plan"
+        ]
+      },
+      "Day 79": {
+        "morning": [
+          "Extract and clean your chosen dataset using SQL and Pandas"
+        ],
+        "afternoon": [
+          "Perform exploratory data analysis (EDA) and document initial insights"
+        ],
+        "evening": [
+          "Update your Jupyter Notebook with the data cleaning process and observations"
+        ]
+      },
+      "Day 80": {
+        "morning": [
+          "Perform feature engineering: create new features, handle missing values, normalize data"
+        ],
+        "afternoon": [
+          "Experiment with different feature sets and record observations"
+        ],
+        "evening": [
+          "Document your feature engineering choices and update your notebook"
+        ]
+      },
+      "Day 81": {
+        "morning": [
+          "Experiment with 2-3 ML models (e.g., logistic regression, decision tree, random forest)"
+        ],
+        "afternoon": [
+          "Compare initial results using validation metrics and document your process"
+        ],
+        "evening": [
+          "Document your model selection process and update your notes"
+        ]
+      },
+      "Day 82": {
+        "morning": [
+          "Train your chosen ML model on the dataset and evaluate using cross-validation"
+        ],
+        "afternoon": [
+          "Document performance metrics and create visual comparisons (predictions vs. actual)"
+        ],
+        "evening": [
+          "Update your Jupyter Notebook with final evaluation results"
+        ]
+      },
+      "Day 83": {
+        "morning": [
+          "Fine-tune your best model with hyperparameter tuning if needed"
+        ],
+        "afternoon": [
+          "Record final performance metrics and refine the model"
+        ],
+        "evening": [
+          "Write a project report summary outlining methodology, challenges, and results"
+        ]
+      },
+      "Day 84": {
+        "morning": [
+          "Polish your end-to-end ML project; ensure comprehensive documentation in your notebook"
+        ],
+        "afternoon": [
+          "Push the project to GitHub and update your portfolio"
+        ],
+        "evening": [
+          "Write a 'lessons learned' summary and update your portfolio notes"
+        ]
+      },
+      "Day 85": {
+        "morning": [
+          "Watch an introductory video on deep learning and neural networks"
+        ],
+        "afternoon": [
+          "Read about the basics of neural networks (neurons, layers, activation functions)"
+        ],
+        "evening": [
+          "Document key deep learning concepts and set up a new DL experiment notebook"
+        ]
+      },
+      "Day 86": {
+        "morning": [
+          "Study neural network architecture (input, hidden, output layers)"
+        ],
+        "afternoon": [
+          "Implement a simple neural network using Keras or PyTorch on a toy dataset"
+        ],
+        "evening": [
+          "Document the model architecture and training process"
+        ]
+      },
+      "Day 87": {
+        "morning": [
+          "Focus on activation functions (ReLU, sigmoid, tanh) and experiment with them"
+        ],
+        "afternoon": [
+          "Modify your neural network to test different activation functions"
+        ],
+        "evening": [
+          "Document performance differences and update your DL notes"
+        ]
+      },
+      "Day 88": {
+        "morning": [
+          "Study backpropagation and optimization algorithms (Gradient Descent, Adam)"
+        ],
+        "afternoon": [
+          "Code a simple example to illustrate weight updates"
+        ],
+        "evening": [
+          "Summarize the update rules and document your findings"
+        ]
+      },
+      "Day 89": {
+        "morning": [
+          "Solve a simple classification problem using your neural network"
+        ],
+        "afternoon": [
+          "Monitor training loss and accuracy; experiment with learning rates"
+        ],
+        "evening": [
+          "Document model training improvements and update your DL notebook"
+        ]
+      },
+      "Day 90": {
+        "morning": [
+          "Write a detailed explanation of your neural network's training process"
+        ],
+        "afternoon": [
+          "Compare experimental results with theoretical expectations"
+        ],
+        "evening": [
+          "Update your notebook with insights and final reflections for the day"
+        ]
+      },
+      "Day 91": {
+        "morning": [
+          "Review all deep learning fundamentals learned during the week"
+        ],
+        "afternoon": [
+          "Re-run DL experiments and ensure your notes are comprehensive"
+        ],
+        "evening": [
+          "Update your portfolio with a summary of deep learning fundamentals"
+        ]
+      },
+      "Day 92": {
+        "morning": [
+          "Study Convolutional Neural Networks (CNNs): theory and key components (convolution, pooling)"
+        ],
+        "afternoon": [
+          "Watch a tutorial on CNNs and note differences from fully connected networks"
+        ],
+        "evening": [
+          "Document key aspects of CNNs and update your DL notes"
+        ]
+      },
+      "Day 93": {
+        "morning": [
+          "Implement a basic CNN on the MNIST dataset using Keras or PyTorch"
+        ],
+        "afternoon": [
+          "Train your CNN and monitor its accuracy"
+        ],
+        "evening": [
+          "Document the CNN architecture and training details in your notebook"
+        ]
+      },
+      "Day 94": {
+        "morning": [
+          "Study regularization techniques for CNNs (dropout, L2 regularization)"
+        ],
+        "afternoon": [
+          "Apply dropout to your CNN and compare performance with an unregularized model"
+        ],
+        "evening": [
+          "Document performance improvements and update your DL notes"
+        ]
+      },
+      "Day 95": {
+        "morning": [
+          "Explore data augmentation techniques to improve model generalization"
+        ],
+        "afternoon": [
+          "Implement data augmentation (rotations, shifts) and retrain your CNN"
+        ],
+        "evening": [
+          "Document before-and-after performance and update your DL notebook"
+        ]
+      },
+      "Day 96": {
+        "morning": [
+          "Evaluate your CNN using performance metrics; plot training and validation curves"
+        ],
+        "afternoon": [
+          "Experiment with hyperparameter tuning (batch size, learning rate) and document effects"
+        ],
+        "evening": [
+          "Update your notebook with evaluation results and tuning insights"
+        ]
+      },
+      "Day 97": {
+        "morning": [
+          "Get a brief overview of Recurrent Neural Networks (RNNs) and their applications"
+        ],
+        "afternoon": [
+          "Write a summary comparing CNNs and RNNs"
+        ],
+        "evening": [
+          "Document key points and update your DL notes"
+        ]
+      },
+      "Day 98": {
+        "morning": [
+          "Summarize all advanced deep learning techniques learned during the week"
+        ],
+        "afternoon": [
+          "Review DL experiments and update your project documentation"
+        ],
+        "evening": [
+          "Update your portfolio with a DL summary and lessons learned"
+        ]
+      },
+      "Day 99": {
+        "morning": [
+          "Study CPU vs. GPU fundamentals and understand why GPUs are essential for deep learning"
+        ],
+        "afternoon": [
+          "Watch a video on CUDA cores and GPU architecture; document differences"
+        ],
+        "evening": [
+          "Update your notes with GPU vs. CPU performance insights"
+        ]
+      },
+      "Day 100": {
+        "morning": [
+          "Learn about GPU memory bandwidth and parallel processing concepts"
+        ],
+        "afternoon": [
+          "Explore a tutorial on GPU computing basics; document how GPU features accelerate DL"
+        ],
+        "evening": [
+          "Update your DL notes with GPU optimization concepts"
+        ]
+      },
+      "Day 101": {
+        "morning": [
+          "Watch a detailed tutorial on using GPUs with TensorFlow/PyTorch (using nvidia-smi)"
+        ],
+        "afternoon": [
+          "Run a deep learning experiment on a GPU (if available) and record performance metrics"
+        ],
+        "evening": [
+          "Document GPU performance observations and update your portfolio"
+        ]
+      },
+      "Day 102": {
+        "morning": [
+          "Study memory hierarchy (registers, cache, RAM) and pipelining in modern processors"
+        ],
+        "afternoon": [
+          "Create diagrams illustrating memory flow and relate them to model training speeds"
+        ],
+        "evening": [
+          "Update your notes with memory hierarchy insights and reflections"
+        ]
+      },
+      "Day 103": {
+        "morning": [
+          "Read case studies on how companies like Nvidia optimize deep learning workloads"
+        ],
+        "afternoon": [
+          "Summarize key hardware optimization strategies from real-world examples"
+        ],
+        "evening": [
+          "Document case study insights and update your DL notes"
+        ]
+      },
+      "Day 104": {
+        "morning": [
+          "Revisit your deep learning experiments and note any hardware-related bottlenecks"
+        ],
+        "afternoon": [
+          "Research potential hardware optimizations and document possible solutions"
+        ],
+        "evening": [
+          "Update your portfolio with hardware tuning insights and reflections"
+        ]
+      },
+      "Day 105": {
+        "morning": [
+          "Consolidate all computer architecture notes; ensure understanding of key concepts"
+        ],
+        "afternoon": [
+          "Review and document how each hardware component impacts DL training"
+        ],
+        "evening": [
+          "Update your portfolio with a summary of hardware optimizations"
+        ]
+      },
+      "Day 106": {
+        "morning": [
+          "Plan a deep learning mini-project (e.g., image classification on CIFAR-10)"
+        ],
+        "afternoon": [
+          "Outline project steps: data preparation, model building, training, and evaluation"
+        ],
+        "evening": [
+          "Create a dedicated project folder and set up a new Jupyter Notebook; document your plan"
+        ]
+      },
+      "Day 107": {
+        "morning": [
+          "Download and preprocess the CIFAR-10 dataset (or chosen dataset)"
+        ],
+        "afternoon": [
+          "Apply data augmentation techniques and document preprocessing steps"
+        ],
+        "evening": [
+          "Update your notebook with detailed preprocessing process"
+        ]
+      },
+      "Day 108": {
+        "morning": [
+          "Build your deep learning model (e.g., a CNN) using your chosen framework"
+        ],
+        "afternoon": [
+          "Write code for each layer and explain its function in your notebook"
+        ],
+        "evening": [
+          "Validate the model structure with a summary output and document details"
+        ]
+      },
+      "Day 109": {
+        "morning": [
+          "Train your deep learning model and monitor training loss and accuracy"
+        ],
+        "afternoon": [
+          "Adjust training parameters if necessary and save intermediate models"
+        ],
+        "evening": [
+          "Record training logs and observations; update your DL notebook"
+        ]
+      },
+      "Day 110": {
+        "morning": [
+          "Evaluate your model on a validation set; plot performance curves (loss, accuracy)"
+        ],
+        "afternoon": [
+          "Experiment with hyperparameter tuning and document performance changes"
+        ],
+        "evening": [
+          "Update your notebook with final evaluation results and tuning reflections"
+        ]
+      },
+      "Day 111": {
+        "morning": [
+          "Refine your deep learning model based on evaluation feedback"
+        ],
+        "afternoon": [
+          "Write a detailed project report explaining methodology, challenges, and results"
+        ],
+        "evening": [
+          "Update your portfolio with the project report and final reflections"
+        ]
+      },
+      "Day 112": {
+        "morning": [
+          "Polish your deep learning project; ensure the notebook is fully documented"
+        ],
+        "afternoon": [
+          "Push the project to GitHub and update your portfolio"
+        ],
+        "evening": [
+          "Write a 'lessons learned' summary and finalize your DL project documentation"
+        ]
+      },
+      "Day 113": {
+        "morning": [
+          "Practice 2-3 DSA problems on LeetCode (arrays and strings in Python)"
+        ],
+        "afternoon": [
+          "Review and optimize your DSA solutions; update your code"
+        ],
+        "evening": [
+          "Document alternate approaches in your study journal"
+        ]
+      },
+      "Day 114": {
+        "morning": [
+          "Solve 2-3 DSA problems on trees and graphs in Python"
+        ],
+        "afternoon": [
+          "Practice explaining your thought process out loud for each problem"
+        ],
+        "evening": [
+          "Record your explanations and refine your understanding"
+        ]
+      },
+      "Day 115": {
+        "morning": [
+          "Tackle 2 challenging SQL queries involving window functions and subqueries"
+        ],
+        "afternoon": [
+          "Compare your solutions with community answers"
+        ],
+        "evening": [
+          "Document key SQL optimization tips in your notes"
+        ]
+      },
+      "Day 116": {
+        "morning": [
+          "Participate in a mock interview session focusing on DSA and SQL (using a platform like Pramp)"
+        ],
+        "afternoon": [
+          "Review feedback from the mock interview and identify areas for improvement"
+        ],
+        "evening": [
+          "Update your study journal with actionable feedback"
+        ]
+      },
+      "Day 117": {
+        "morning": [
+          "Take a timed coding test combining DSA and SQL problems"
+        ],
+        "afternoon": [
+          "Analyze your performance and identify patterns in mistakes"
+        ],
+        "evening": [
+          "Document your analysis and update your study journal with improvement strategies"
+        ]
+      },
+      "Day 118": {
+        "morning": [
+          "Focus on a challenging topic (e.g., dynamic programming) and solve related problems"
+        ],
+        "afternoon": [
+          "Write detailed solutions and explanations for each problem"
+        ],
+        "evening": [
+          "Review and refine your approach; update your notes accordingly"
+        ]
+      },
+      "Day 119": {
+        "morning": [
+          "Consolidate all coding practice from the week; simulate an interview by explaining problems aloud"
+        ],
+        "afternoon": [
+          "Refine your GitHub repository with well-documented DSA solutions"
+        ],
+        "evening": [
+          "Update your portfolio with your best coding solutions"
+        ]
+      },
+      "Day 120": {
+        "morning": [
+          "Prepare STAR stories for common behavioral interview questions"
+        ],
+        "afternoon": [
+          "Write and practice your elevator pitch summarizing your background and projects"
+        ],
+        "evening": [
+          "Record your practice and review for improvements"
+        ]
+      },
+      "Day 121": {
+        "morning": [
+          "Study system design concepts for scalable data pipelines and ML systems"
+        ],
+        "afternoon": [
+          "Read case studies on data architecture design and document key takeaways"
+        ],
+        "evening": [
+          "Summarize system design principles and update your notes"
+        ]
+      },
+      "Day 122": {
+        "morning": [
+          "Simulate a system design interview scenario; outline a scalable design for a given problem"
+        ],
+        "afternoon": [
+          "Sketch diagrams and explain trade-offs in your design"
+        ],
+        "evening": [
+          "Document your system design explanation and update your notes"
+        ]
+      },
+      "Day 123": {
+        "morning": [
+          "Review and refine your portfolio; update GitHub with all projects (DSA, ML, DL, Tableau)"
+        ],
+        "afternoon": [
+          "Create or update your personal website/LinkedIn with project summaries"
+        ],
+        "evening": [
+          "Seek feedback from peers and update your portfolio accordingly"
+        ]
+      },
+      "Day 124": {
+        "morning": [
+          "Improve your resume by highlighting technical skills and project achievements"
+        ],
+        "afternoon": [
+          "Tailor your resume with quantifiable metrics (e.g., improved model accuracy by X%)"
+        ],
+        "evening": [
+          "Review your resume with a mentor and make necessary adjustments"
+        ]
+      },
+      "Day 125": {
+        "morning": [
+          "Practice answering 5 common behavioral interview questions using the STAR method"
+        ],
+        "afternoon": [
+          "Reflect on your responses and write improved answers in your notebook"
+        ],
+        "evening": [
+          "Rehearse your responses and update your study journal"
+        ]
+      },
+      "Day 126": {
+        "morning": [
+          "Conduct a full mock interview (technical and behavioral) with a peer or online tool"
+        ],
+        "afternoon": [
+          "Record the session and analyze the feedback received"
+        ],
+        "evening": [
+          "Update your preparation notes with refined answers and strategies"
+        ]
+      },
+      "Day 127": {
+        "morning": [
+          "Use extra time to refine your portfolio projects and resume"
+        ],
+        "afternoon": [
+          "Practice additional mock interviews focusing on technical questions"
+        ],
+        "evening": [
+          "Update your notes with any last-minute improvements"
+        ]
+      },
+      "Day 128": {
+        "morning": [
+          "Solve 3-4 high-difficulty DSA problems and explain your reasoning out loud"
+        ],
+        "afternoon": [
+          "Re-solve 2 challenging SQL problems and document your optimized approaches"
+        ],
+        "evening": [
+          "Update your study journal with reflections on problem-solving strategies"
+        ]
+      },
+      "Day 129": {
+        "morning": [
+          "Review your ML and DL projects; ensure you can clearly explain each step"
+        ],
+        "afternoon": [
+          "Prepare a concise elevator pitch for each key project"
+        ],
+        "evening": [
+          "Update your portfolio with final project summaries and explanations"
+        ]
+      },
+      "Day 130": {
+        "morning": [
+          "Practice final system design: explain a scalable data pipeline and hardware optimizations"
+        ],
+        "afternoon": [
+          "Sketch a concise diagram and record your explanation"
+        ],
+        "evening": [
+          "Review your system design explanation and refine your notes"
+        ]
+      },
+      "Day 131": {
+        "morning": [
+          "Conduct a final coding practice session with timed DSA and SQL problems"
+        ],
+        "afternoon": [
+          "Review your performance and identify areas for last-minute adjustments"
+        ],
+        "evening": [
+          "Document final improvements and update your cheat-sheets"
+        ]
+      },
+      "Day 132": {
+        "morning": [
+          "Focus on remaining weak spots (specific DSA topics or SQL syntax) with targeted practice"
+        ],
+        "afternoon": [
+          "Solve targeted problems and write detailed solutions"
+        ],
+        "evening": [
+          "Summarize improvements and update your review notes"
+        ]
+      },
+      "Day 133": {
+        "morning": [
+          "Conduct a complete mock interview covering technical, system design, and behavioral questions"
+        ],
+        "afternoon": [
+          "Analyze your performance and record feedback"
+        ],
+        "evening": [
+          "Refine your responses and update your preparation notes"
+        ]
+      },
+      "Day 134": {
+        "morning": [
+          "Finalize all portfolio projects: ensure GitHub repositories, Tableau dashboards, and DL projects are fully documented"
+        ],
+        "afternoon": [
+          "Update your personal website/LinkedIn with final project links and a polished 'About Me' section"
+        ],
+        "evening": [
+          "Write a final summary emphasizing your comprehensive skill set and update your portfolio"
+        ]
+      },
+      "Day 135": {
+        "morning": [
+          "Review and rehearse your technical interview stories and project explanations"
+        ],
+        "afternoon": [
+          "Conduct a self-review of all technical topics and write potential interview questions with answers"
+        ],
+        "evening": [
+          "Document your final interview preparation notes"
+        ]
+      },
+      "Day 136": {
+        "morning": [
+          "Take a final intensive DSA session: solve 3-4 timed problems"
+        ],
+        "afternoon": [
+          "Review 1-2 SQL challenges and document final optimizations"
+        ],
+        "evening": [
+          "Update your cheat-sheets with any last-minute improvements"
+        ]
+      },
+      "Day 137": {
+        "morning": [
+          "Simulate a complete interview session covering technical, system design, and behavioral questions"
+        ],
+        "afternoon": [
+          "Record the session and review your performance"
+        ],
+        "evening": [
+          "Refine your responses based on feedback and update your notes"
+        ]
+      },
+      "Day 138": {
+        "morning": [
+          "Conduct a final portfolio review: ensure every project is well-documented and presentable"
+        ],
+        "afternoon": [
+          "Make any last-minute updates to your resume and LinkedIn"
+        ],
+        "evening": [
+          "Prepare your application materials and finalize your portfolio"
+        ]
+      },
+      "Day 139": {
+        "morning": [
+          "Review your cheat-sheets and summaries for each major topic"
+        ],
+        "afternoon": [
+          "Have a final mock interview or Q&A session with a peer to boost confidence"
+        ],
+        "evening": [
+          "Document final reflections and update your study journal"
+        ]
+      },
+      "Day 140": {
+        "morning": [
+          "Perform a final quick review of key technical points (DSA, ML projects, system design)"
+        ],
+        "afternoon": [
+          "Ensure your portfolio, resume, and LinkedIn are fully updated and polished"
+        ],
+        "evening": [
+          "Relax, review your progress, and mentally prepare for interviews starting the next day"
+        ]
+      }
+    };
+
+    /************************************************************
+     2) Flatten & Display All Tasks (morning, afternoon, evening)
+    *************************************************************/
+    function updateSidebar() {
+      const dayList = document.getElementById("dayList");
+      dayList.innerHTML = "";
+      for (let day in tasksData) {
+        const li = document.createElement("li");
+        const link = document.createElement("a");
+        link.textContent = day;
+        link.href = "#";
+        link.onclick = function() {
+          loadDay(day);
+        };
+        li.appendChild(link);
+        dayList.appendChild(li);
+      }
+    }
+
+    function loadDay(day) {
+      document.getElementById("dayTitle").textContent = day;
+      document.getElementById("notesDay").textContent = day;
+      const container = document.getElementById("taskContainer");
+      container.innerHTML = ""; // Clear previous tasks
+
+      let tasks = [];
+      // Flatten morning/afternoon/evening arrays
+      if (tasksData[day].morning) {
+        tasks = tasks.concat(tasksData[day].morning);
+      }
+      if (tasksData[day].afternoon) {
+        tasks = tasks.concat(tasksData[day].afternoon);
+      }
+      if (tasksData[day].evening) {
+        tasks = tasks.concat(tasksData[day].evening);
+      }
+
+      tasks.forEach((task, index) => {
+        const taskDiv = document.createElement("div");
+        taskDiv.className = "task";
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        const uniqueId = `${day}-task-${index}`;
+        checkbox.id = uniqueId;
+
+        // Load saved state from localStorage
+        const savedState = localStorage.getItem(uniqueId);
+        if (savedState !== null) {
+          checkbox.checked = JSON.parse(savedState);
+        }
+
+        // Save checkbox state on change
+        checkbox.onchange = function() {
+          localStorage.setItem(uniqueId, checkbox.checked);
+        };
+
+        const label = document.createElement("label");
+        label.setAttribute("for", uniqueId);
+        label.textContent = task;
+
+        taskDiv.appendChild(checkbox);
+        taskDiv.appendChild(label);
+        container.appendChild(taskDiv);
+      });
+
+      // Load notes from localStorage
+      const notesArea = document.getElementById("notesArea");
+      const savedNotes = localStorage.getItem(day + "-notes");
+      notesArea.value = savedNotes ? savedNotes : "";
+      notesArea.oninput = function() {
+        localStorage.setItem(day + "-notes", notesArea.value);
+      };
+    }
+
+    // Initialize everything
+    updateSidebar();
+    // By default, load the first day in tasksData
+    const firstDay = Object.keys(tasksData)[0];
+    loadDay(firstDay);
+  </script>
+</body>
+</html>
